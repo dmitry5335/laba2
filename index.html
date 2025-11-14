@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>Мысли Студентов ЗабГУ</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Мысли Студентов ЗабГУ</h1>
+    </div>
+  </header>
+  <main class="container">
+    <ul id="blog-list">
+    </ul>
+  </main>
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Мысли Студентов ЗабГУ.</p>
+    </div>
+  </footer>
+  <script>
+    fetch('/students.json')
+      .then(r => r.json())
+      .then(items => {
+        const ul = document.getElementById('blog-list');
+        items.forEach(b => {
+          const li = document.createElement('li');
+          li.className = 'post-item';
+          li.innerHTML = `
+            <a href="/${b.id}">${b.title}</a>
+            <p class="post-summary">${b.summary}</p>
+          `;
+          ul.appendChild(li);
+        });
+      });
+  </script>
+</body>
+</html>
